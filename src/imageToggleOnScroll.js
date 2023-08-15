@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
 const ImageTogglerOnScroll = ({ primaryImg, secondaryImg }) => {
   const imageRef = useRef(null);
@@ -15,9 +15,9 @@ const ImageTogglerOnScroll = ({ primaryImg, secondaryImg }) => {
   useEffect(() => {
     setIsLoading(false);
     setInView(isInView());
-    window.addEventListener("scroll", scrollHandler);
+    window.addEventListener('scroll', scrollHandler);
     return () => {
-      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener('scroll', scrollHandler);
     };
   }, []);
 
@@ -25,10 +25,21 @@ const ImageTogglerOnScroll = ({ primaryImg, secondaryImg }) => {
     setInView(isInView());
   };
 
-  return <img src={
-    // isLoading ? "data:image/gif" 
-    inView ? secondaryImg : primaryImg} 
-    alt="" ref={imageRef} />;
+  return (
+    <img
+      src={
+        isLoading
+          ? 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' // 1x1gif
+          : inView
+          ? secondaryImg
+          : primaryImg
+      }
+      alt=""
+      ref={imageRef}
+      width="250"
+      height="200"
+    />
+  );
 };
 
 export default ImageTogglerOnScroll;

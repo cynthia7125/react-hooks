@@ -55,6 +55,8 @@ const Cartoons = ({}) => {
     [cartoonSaturday, cartoonSunday, cartoonList]
   );
 
+  const cartoonListFiltered = isLoading ? [] : newcartoonList;
+
   const heartFavoriteHandler = (e, favoriteValue) => {
     e.preventDefault();
     const sessionId = parseInt(e.target.attributes["data-sessionId"].value);

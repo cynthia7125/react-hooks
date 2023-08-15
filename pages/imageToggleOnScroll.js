@@ -8,7 +8,8 @@ const ImageChangeOnScroll = () => {
   useEffect(() => {
     window.document.title = `MyCartoons: ${currentCartoon}`;
     console.log(`useEffect: setting title to ${currentCartoon}`);
-  }, [currentCartoon ]);
+  }, []);
+  // [ currentCartoon ]);
 
   return (
     <div>
@@ -30,8 +31,8 @@ const ImageChangeOnScroll = () => {
               console.log(`onMouseOver:${myCartoons}`);
             }}>
             <ImageToggleOnScroll
-              primaryImg={`/static/speakers/bw/${myCartoons}.jpg`}
-              secondaryImg={`/static/speakers/${myCartoons}.jpg`}
+              primaryImg={`/static/cartoons/bw/${myCartoons}.jpg`}
+              secondaryImg={`/static/cartoons/${myCartoons}.jpg`}
               alt=""
             />
           </div>

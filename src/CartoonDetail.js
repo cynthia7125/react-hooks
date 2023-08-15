@@ -7,9 +7,9 @@ const CartoonDetail = ({
     return (
         <div className="card col-4 cardmin">
             <ImageTogglerOnScroll className="card-img-top" 
-            primaryImg={`/static/cartoons/bw/${myCartoons}.jpg`} 
-            secondaryImg={`/static/cartoons/${myCartoons}.jpg`} 
-            alt={`${firstName} ${lastName}`}/>
+            primaryImg={`/static/cartoons/bw/${firstName}.jpg`} 
+            secondaryImg={`/static/cartoons/${firstName}.jpg`} 
+            alt="{`${firstName} ${lastName}`} picture"/>
             <div className="card-body">
             <h4 className="card-title">
                 <button

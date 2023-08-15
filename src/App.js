@@ -5,23 +5,22 @@ import Cartoons from "./Cartoons";
 export const ConfigContext = React.createContext();
 
 const pageToShow = ({ pageName }) => {
-  if (pageName === '/') return <Home></Home>;
-  if (pageName === 'Speakers') return <Cartoons></Cartoons>;
+  if (pageName === 'Home') return <Home />;
+  if (pageName === 'Cartoons') return <Cartoons />;
   return <div>Not Found</div>;
 };
 
 const configValue = {
-    showSignMeUp: true,
-    showCartoonDays: true,
+  showSignMeUp: true,
+  showCartoonDays: true,
 };
 
 const App = ({ pageName }) => {
-    return (
-      <ConfigContext.Provider value={configValue}>
-        <div>{pageToShow(pageName)}</div>
-      </ConfigContext.Provider>
-    );
-  };
-  
+  return (
+    <ConfigContext.Provider value={configValue}>
+      <div>{pageToShow({ pageName })}</div>
+    </ConfigContext.Provider>
+  );
+};
 
 export default App;

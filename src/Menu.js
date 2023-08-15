@@ -7,12 +7,12 @@ export const Menu = () => {
             <div className="navbar">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link href="/">
+                        <Link href="/" legacyBehavior>
                             <a className="nav-link">Home</a>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href="/cartoons">
+                        <Link href="/cartoons" legacyBehavior>
                             <a className="nav-link">Cartoons</a>
                         </Link>
                     </li>
