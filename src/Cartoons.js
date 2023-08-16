@@ -1,16 +1,24 @@
-import React, { useEffect, useState, useMemo, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+  useContext,
+  useReducer,
+} from "react";
 
 import { Header } from "./Header";
 import { Menu } from "./Menu";
 import cartoonCharacterData from "./CartoonData";
 import CartoonDetail from "./CartoonDetail";
 import { ConfigContext } from "./App";
+import cartoonsReducer from "./cartoonsReducer";
 
 const Cartoons = ({}) => {
   const [cartoonSaturday, setCartoonSaturday] = useState(true);
   const [cartoonSunday, setCartoonSunday] = useState(true);
 
-  const [cartoonList, setCartoonList] = useState([]);
+  // const [cartoonList, setCartoonList] = useState([]);
+  const [cartoonList, dispatch] = useReducer(cartoonsReducer, []);
   const [isLoading, setIsLoading] = useState(true);
 
   const context = useContext(ConfigContext);
@@ -23,8 +31,17 @@ const Cartoons = ({}) => {
       }, 1000);
     }).then(() => {
       setIsLoading(false);
+      const cartoonListServerFilter = cartoonCharacterData.filter(
+        ({ sat, sun }) => {
+          return (cartoonSaturday && sat) || (cartoonSunday && sun);
+        }
+      );
+      dispatch({
+        type: "setCartoonList", //misstype caused this to not show cartoons.
+        data: cartoonListServerFilter,
+      });
     });
-    setCartoonList(cartoonCharacterData);
+    // setCartoonList(cartoonListServerFilter);
     return () => {
       console.log("cleanup");
     };
@@ -37,11 +54,11 @@ const Cartoons = ({}) => {
     setCartoonSunday(!cartoonSunday);
   };
 
-  const newcartoonList = useMemo(
-    () =>
-      cartoonList
+  const newcartoonList = isLoading
+    ? []
+    : cartoonList
         .filter(
-          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun),
+          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun)
         )
         .sort(function (a, b) {
           if (a.firstName < b.firstName) {
@@ -51,23 +68,28 @@ const Cartoons = ({}) => {
             return 1;
           }
           return 0;
-        }),
-    [cartoonSaturday, cartoonSunday, cartoonList]
-  );
+        });
+  // [cartoonSaturday, cartoonSunday, cartoonList]
+  // );
 
   const cartoonListFiltered = isLoading ? [] : newcartoonList;
 
   const heartFavoriteHandler = (e, favoriteValue) => {
     e.preventDefault();
     const sessionId = parseInt(e.target.attributes["data-sessionId"].value);
-    setCartoonList(
-      cartoonList.map((item) => {
-        if (item.id === sessionId) {
-          return { ...item, favorite: favoriteValue };
-        }
-        return item;
-      })
-    );
+
+    dispatch({
+      type: favoriteValue === true ? "favorite" : "unfavorite",
+      sessionId,
+    });
+    // setCartoonList(
+    //   cartoonList.map((item) => {
+    //     if (item.id === sessionId) {
+    //       return { ...item, favorite: favoriteValue };
+    //     }
+    //     return item;
+    //   })
+    // );
   };
 
   if (isLoading) return <div>Loading...</div>;
