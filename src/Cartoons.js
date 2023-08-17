@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useContext,
   useReducer,
+  useCallback,
 } from "react";
 
 import { Header } from "./Header";
@@ -74,7 +75,7 @@ const Cartoons = ({}) => {
 
   const cartoonListFiltered = isLoading ? [] : newcartoonList;
 
-  const heartFavoriteHandler = (e, favoriteValue) => {
+  const heartFavoriteHandler = useCallback((e, favoriteValue) => {
     e.preventDefault();
     const sessionId = parseInt(e.target.attributes["data-sessionId"].value);
 
@@ -90,7 +91,7 @@ const Cartoons = ({}) => {
     //     return item;
     //   })
     // );
-  };
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
 
