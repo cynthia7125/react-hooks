@@ -6,52 +6,18 @@ import React, {
   useReducer,
   useCallback,
 } from "react";
-
 import { Header } from "./Header";
 import { Menu } from "./Menu";
-import cartoonCharacterData from "./CartoonData";
 import CartoonDetail from "./CartoonDetail";
 import { ConfigContext } from "./App";
-import cartoonsReducer from "./cartoonsReducer";
+import useCartoonDataManager from "./UseCartoonDataManager";
 
 const Cartoons = ({}) => {
   const [cartoonSaturday, setCartoonSaturday] = useState(true);
   const [cartoonSunday, setCartoonSunday] = useState(true);
-
-  // const [cartoonList, setCartoonList] = useState([]);
-  const [ { isLoading, cartoonList }, dispatch] = useReducer(cartoonsReducer, {
-    isLoading: true,
-    cartoonList: []
-  }
-  );
-  // const [isLoading, setIsLoading] = useState(true);
-
   const context = useContext(ConfigContext);
-
-  useEffect(() => {
-    // setIsLoading(true);
-    new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve();
-      }, 1000);
-    }).then(() => {
-      // setIsLoading(false);
-      // const cartoonListServerFilter = cartoonCharacterData.filter(
-      //   ({ sat, sun }) => {
-      //     return (cartoonSaturday && sat) || (cartoonSunday && sun);
-      //   }
-      // );
-      dispatch({
-        type: "setCartoonList", //misstype caused this to not show cartoons.
-        // data: cartoonListServerFilter,
-        data: cartoonCharacterData
-      });
-    });
-    // setCartoonList(cartoonListServerFilter);
-    return () => {
-      console.log("cleanup");
-    };
-  }, []);
+  // const [cartoonList, setCartoonList] = useState([]);
+  const {cartoonList, isLoading, dispatch} = useCartoonDataManager();
 
   const handleChangeSaturday = () => {
     setCartoonSaturday(!cartoonSaturday);
@@ -59,8 +25,6 @@ const Cartoons = ({}) => {
   const handleChangeSunday = () => {
     setCartoonSunday(!cartoonSunday);
   };
-
-
 
   const heartFavoriteHandler = useCallback((e, favoriteValue) => {
     e.preventDefault();
@@ -79,27 +43,24 @@ const Cartoons = ({}) => {
     //   })
     // );
   }, []);
-  
-
 
   const newcartoonList = useMemo(
-        () =>
-          cartoonList
-            .filter(
-              ({ sat, sun }) =>
-                (cartoonSaturday && sat) || (cartoonSunday && sun)
-            )
-            .sort(function (a, b) {
-              if (a.firstName < b.firstName) {
-                return -1;
-              }
-              if (a.firstName > b.firstName) {
-                return 1;
-              }
-              return 0;
-            }),
-        [cartoonSaturday, cartoonSunday, cartoonList]
-      );
+    () =>
+      cartoonList
+        .filter(
+          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun)
+        )
+        .sort(function (a, b) {
+          if (a.firstName < b.firstName) {
+            return -1;
+          }
+          if (a.firstName > b.firstName) {
+            return 1;
+          }
+          return 0;
+        }),
+    [cartoonSaturday, cartoonSunday, cartoonList]
+  );
   // [cartoonSaturday, cartoonSunday, cartoonList]
   // );
 
