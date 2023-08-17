@@ -19,27 +19,32 @@ const Cartoons = ({}) => {
   const [cartoonSunday, setCartoonSunday] = useState(true);
 
   // const [cartoonList, setCartoonList] = useState([]);
-  const [cartoonList, dispatch] = useReducer(cartoonsReducer, []);
-  const [isLoading, setIsLoading] = useState(true);
+  const [ { isLoading, cartoonList }, dispatch] = useReducer(cartoonsReducer, {
+    isLoading: true,
+    cartoonList: []
+  }
+  );
+  // const [isLoading, setIsLoading] = useState(true);
 
   const context = useContext(ConfigContext);
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     new Promise(function (resolve) {
       setTimeout(function () {
         resolve();
       }, 1000);
     }).then(() => {
-      setIsLoading(false);
-      const cartoonListServerFilter = cartoonCharacterData.filter(
-        ({ sat, sun }) => {
-          return (cartoonSaturday && sat) || (cartoonSunday && sun);
-        }
-      );
+      // setIsLoading(false);
+      // const cartoonListServerFilter = cartoonCharacterData.filter(
+      //   ({ sat, sun }) => {
+      //     return (cartoonSaturday && sat) || (cartoonSunday && sun);
+      //   }
+      // );
       dispatch({
         type: "setCartoonList", //misstype caused this to not show cartoons.
-        data: cartoonListServerFilter,
+        // data: cartoonListServerFilter,
+        data: cartoonCharacterData
       });
     });
     // setCartoonList(cartoonListServerFilter);
@@ -63,7 +68,7 @@ const Cartoons = ({}) => {
 
     dispatch({
       type: favoriteValue === true ? "favorite" : "unfavorite",
-      sessionId,
+      id: sessionId,
     });
     // setCartoonList(
     //   cartoonList.map((item) => {

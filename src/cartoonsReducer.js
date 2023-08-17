@@ -1,7 +1,7 @@
 const cartoonsReducer = (state, action) => {
     function updateFavorite(favoriteValue){
-      return state.map((item, index) => {
-        if (item.id === action.sessionId){
+      return state.cartoonList.map((item, index) => {
+        if (item.id === action.id){
           return {...item, favorite: favoriteValue}
         }
         return item;
@@ -9,13 +9,13 @@ const cartoonsReducer = (state, action) => {
     }
     switch (action.type) {
       case "setCartoonList":
-        return action.data;
+        return { ...state, cartoonList: action.data, isLoading: false };
       
       case "favorite":
-        return updateFavorite(true);
+        return { ...state, cartoonList: updateFavorite(true)};
 
       case "unfavorite":
-        return updateFavorite(false);
+        return { ...state, cartoonList: updateFavorite(false)};
 
       default:
         return state;
