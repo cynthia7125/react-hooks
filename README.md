@@ -1,3 +1,11 @@
+# To Run
+
+``` npm i ```
+
+``` npm run  dev ```
+
+# Content learnt
+
 ## [UseState](https://react.dev/reference/react/useState)
 - Lets us track state easily with little ceremony.
 
