@@ -55,25 +55,7 @@ const Cartoons = ({}) => {
     setCartoonSunday(!cartoonSunday);
   };
 
-  const newcartoonList = isLoading
-    ? []
-    : cartoonList
-        .filter(
-          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun)
-        )
-        .sort(function (a, b) {
-          if (a.firstName < b.firstName) {
-            return -1;
-          }
-          if (a.firstName > b.firstName) {
-            return 1;
-          }
-          return 0;
-        });
-  // [cartoonSaturday, cartoonSunday, cartoonList]
-  // );
 
-  const cartoonListFiltered = isLoading ? [] : newcartoonList;
 
   const heartFavoriteHandler = useCallback((e, favoriteValue) => {
     e.preventDefault();
@@ -92,6 +74,31 @@ const Cartoons = ({}) => {
     //   })
     // );
   }, []);
+  
+
+
+  const newcartoonList = useMemo(
+        () =>
+          cartoonList
+            .filter(
+              ({ sat, sun }) =>
+                (cartoonSaturday && sat) || (cartoonSunday && sun)
+            )
+            .sort(function (a, b) {
+              if (a.firstName < b.firstName) {
+                return -1;
+              }
+              if (a.firstName > b.firstName) {
+                return 1;
+              }
+              return 0;
+            }),
+        [cartoonSaturday, cartoonSunday, cartoonList]
+      );
+  // [cartoonSaturday, cartoonSunday, cartoonList]
+  // );
+
+  const cartoonListFiltered = isLoading ? [] : newcartoonList;
 
   if (isLoading) return <div>Loading...</div>;
 
