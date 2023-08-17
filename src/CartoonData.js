@@ -141,13 +141,13 @@ const cartoonCharacterData = [
   },
   {
     id: 16,
-    firstName: 'Tweety',
-    lastName: 'Bird',
-    sat: false,
+    firstName: 'Powerpuff',
+    lastName: 'Girls',
+    sat: true,
     sun: true,
     favorite: true,
     bio:
-      'Tweety Bird is a small yellow canary who often finds himself in the clutches of the persistent Sylvester the cat. Despite the danger, Tweety remains clever and resourceful.',
+      'The Powerpuff Girls are Blossom, Bubbles, and Buttercup, three kindergarten-aged girls with superpowers. They protect their city from various villains and threats.',
   },
   {
     id: 17,
@@ -160,7 +160,7 @@ const cartoonCharacterData = [
       'Popeye the Sailor is a spinach-loving sailor with a distinctive voice and a love for his sweetheart, Olive Oyl. When he eats spinach, he gains incredible strength to face challenges.',
   },
   {
-    id: 1,
+    id: 18,
     firstName: 'Totally',
     lastName: 'Spies',
     sat: true,
@@ -170,7 +170,7 @@ const cartoonCharacterData = [
       'Totally Spies is an animated series about three teenage girls who are also secret agents, balancing their high school lives with international espionage.',
   },
   {
-    id: 2,
+    id: 19,
     firstName: 'Kim',
     lastName: 'Possible',
     sat: true,
@@ -180,7 +180,7 @@ const cartoonCharacterData = [
       'Kim Possible is a teenage high school cheerleader who moonlights as a crime-fighting secret agent, aided by her tech-genius friend Ron Stoppable.',
   },
   {
-    id: 3,
+    id: 20,
     firstName: 'Pinky',
     lastName: 'and the Brain',
     sat: true,
@@ -190,7 +190,7 @@ const cartoonCharacterData = [
       'Pinky and the Brain are two genetically modified laboratory mice. Brain is a genius with a goal of world domination, while Pinky is his less intelligent but loyal friend.',
   },
   {
-    id: 4,
+    id: 21,
     firstName: 'Boss',
     lastName: 'Baby',
     sat: true,
@@ -200,7 +200,7 @@ const cartoonCharacterData = [
       "Boss Baby follows the adventures of a suit-wearing baby as he teams up with his older brother to thwart the evil plans of Baby Corp's rivals.",
   },
   {
-    id: 5,
+    id: 22,
     firstName: 'Fox Family',
     lastName: 'and Friends',
     sat: true,
@@ -210,7 +210,7 @@ const cartoonCharacterData = [
       'Fox Family and Friends features a group of animal friends who go on various adventures and learn important life lessons together.',
   },
   {
-    id: 6,
+    id: 23,
     firstName: 'Tom',
     lastName: 'and Jerry',
     sat: true,
@@ -218,6 +218,16 @@ const cartoonCharacterData = [
     favorite: true,
     bio:
       'Tom and Jerry is a classic animated series that follows the comedic rivalry between Tom, the cat, and Jerry, the mouse, as they engage in various slapstick antics.',
+  },
+  {
+    id: 24,
+    firstName: 'Tintin',
+    lastName: '',
+    sat: true,
+    sun: true,
+    favorite: true,
+    bio:
+      'Tintin is a young investigative reporter and adventurer. Accompanied by his loyal dog Snowy, Tintin travels the world, solving mysteries and uncovering conspiracies.',
   },
 ];
 
