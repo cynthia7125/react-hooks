@@ -16,6 +16,11 @@ export const Menu = () => {
                             <a className="nav-link">Cartoons</a>
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link href="/EmailValidatingForm" legacyBehavior>
+                            <a className="nav-link">Email Validating Form</a>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </nav>

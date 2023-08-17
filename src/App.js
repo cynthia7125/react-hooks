@@ -1,12 +1,14 @@
 import React from "react";
 import Home from "./Home";
 import Cartoons from "./Cartoons";
+import EmailValidatingForm from "./EmailValidatingForm";
 
 export const ConfigContext = React.createContext();
 
 const pageToShow = ({ pageName }) => {
   if (pageName === 'Home') return <Home />;
   if (pageName === 'Cartoons') return <Cartoons />;
+  if (pageName === 'EmailValidatingForm') return <EmailValidatingForm />;
   return <div>Not Found</div>;
 };
 
