@@ -2,19 +2,32 @@ import { useReducer, useEffect, useContext } from "react";
 import cartoonsReducer from "./cartoonsReducer";
 import axios from "axios";
 
-// import { InitialCartoonCharacterDataContext } from "../pages/cartoons";
-
 function useCartoonDataManager() {
-  // const initialCartoonCharacterData = useContext(InitialCartoonCharacterDataContext);
-
-  const [{ isLoading, cartoonList, favoriteClickCount }, dispatch] = useReducer(cartoonsReducer, {
+  const [
+    {
+      isLoading,
+      cartoonList,
+      favoriteClickCount,
+      hasErrored,
+      error,
+      imageRerenderIdentifier,
+    },
+    dispatch,
+  ] = useReducer(cartoonsReducer, {
     isLoading: true,
     cartoonList: [],
     favoriteClickCount: 0,
+    hasErrored: false,
+    Error: null,
+    imageRerenderIdentifier: 0,
   });
 
   function incrementFavoriteClickCount() {
-    dispatch({ type: 'incrementFavoriteClickCount' });
+    dispatch({ type: "incrementFavoriteClickCount" });
+  }
+
+  function forceImageRerender() {
+    dispatch({ type: "forceImageRerender" });
   }
 
   function toggleCartoonFavorite(cartoonRec) {
@@ -31,19 +44,13 @@ function useCartoonDataManager() {
   }
 
   useEffect(() => {
-    // new Promise(function (resolve) {
-    //   setTimeout(function () {
-    //     resolve();
-    //   }, 1000);
-    // }).then(() => {
-    //   dispatch({
-    //     type: "setCartoonList", //misstype caused this to not show cartoons.
-    //     data: cartoonCharacterData,
-    //   });
-    // });
     const fetchData = async function () {
-      let result = await axios.get("/api/cartoons");
-      dispatch({ type: "setCartoonList", data: result.data });
+      try {
+        let result = await axios.get("/api/cartoons");
+        dispatch({ type: "setCartoonList", data: result.data });
+      } catch (e) {
+        dispatch({ type: "errored", error: e });
+      }
     };
     fetchData();
 
@@ -51,7 +58,17 @@ function useCartoonDataManager() {
       console.log("cleanup");
     };
   }, []);
-  return { cartoonList, isLoading, favoriteClickCount, incrementFavoriteClickCount, toggleCartoonFavorite };
+  return {
+    cartoonList,
+    isLoading,
+    favoriteClickCount,
+    incrementFavoriteClickCount,
+    toggleCartoonFavorite,
+    hasErrored,
+    error,
+    forceImageRerender,
+    imageRerenderIdentifier,
+  };
 }
 
 export default useCartoonDataManager;

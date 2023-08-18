@@ -9,7 +9,7 @@ const cartoonsReducer = (state, action) => {
     }
     switch (action.type) {
       case "setCartoonList":
-        return { ...state, cartoonList: action.data, isLoading: false };
+        return { ...state, cartoonList: action.data, isLoading: false, hasErrored: false };
       
       case "favorite":
         return { ...state, cartoonList: updateFavorite(true)};
@@ -20,6 +20,12 @@ const cartoonsReducer = (state, action) => {
       case "incrementFavoriteClickCount":
         return { ...state, favoriteClickCount: state.favoriteClickCount + 1}; 
 
+      case "errored":
+        return { ...state, hasErrored: true, error: action.error};
+     
+      case "forceImageRerender":
+        return { ...state, imageRerenderIdentifier: new Date().getTime()};
+        
       default:
         return state;
     }

@@ -11,12 +11,15 @@ const Cartoons = ({}) => {
   const [cartoonSunday, setCartoonSunday] = useState(true);
   const context = useContext(ConfigContext);
 
-  const { isLoading, cartoonList, toggleCartoonFavorite, } = useCartoonDataManager();
+  const { isLoading, cartoonList, toggleCartoonFavorite, hasErrored, error, forceImageRerender, } =
+    useCartoonDataManager();
 
   const handleChangeSaturday = () => {
+    forceImageRerender();
     setCartoonSaturday(!cartoonSaturday);
   };
   const handleChangeSunday = () => {
+    forceImageRerender();
     setCartoonSunday(!cartoonSunday);
   };
 
@@ -29,8 +32,7 @@ const Cartoons = ({}) => {
     () =>
       cartoonList
         .filter(
-          ({ sat, sun }) =>
-            (cartoonSaturday && sat) || (cartoonSunday && sun),
+          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun)
         )
         .sort(function (a, b) {
           if (a.firstName < b.firstName) {
@@ -41,10 +43,12 @@ const Cartoons = ({}) => {
           }
           return 0;
         }),
-    [cartoonSaturday, cartoonSunday, cartoonList],
+    [cartoonSaturday, cartoonSunday, cartoonList]
   );
 
   const cartoonListFiltered = isLoading ? [] : newCartoonList;
+
+  if (hasErrored === true) return <div>Error: {error.message}</div>;
 
   if (isLoading) return <div>Loading...</div>;
 

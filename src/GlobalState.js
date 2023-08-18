@@ -10,6 +10,10 @@ export const GlobalProvider = ({ children }) => {
     favoriteClickCount,
     toggleCartoonFavorite,
     incrementFavoriteClickCount,
+    hasErrored,
+    error,
+    forceImageRerender,
+    imageRerenderIdentifier,
   } = useCartoonDataManager();
 
   const provider = {
@@ -18,6 +22,10 @@ export const GlobalProvider = ({ children }) => {
     favoriteClickCount,
     toggleCartoonFavorite,
     incrementFavoriteClickCount,
+    hasErrored,
+    error,
+    forceImageRerender,
+    imageRerenderIdentifier,
   };
 
   return (

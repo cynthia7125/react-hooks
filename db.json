@@ -14,7 +14,7 @@
       "firstName": "SpongeBob",
       "lastName": "SquarePants",
       "sat": true,
-      "sun": true,
+      "sun": false,
       "favorite": false,
       "bio": "SpongeBob SquarePants is a friendly and optimistic sea sponge who lives in a pineapple under the sea. He works at the Krusty Krab and has numerous humorous adventures in the underwater city of Bikini Bottom."
     },
@@ -41,7 +41,7 @@
       "firstName": "Homer",
       "lastName": "Simpson",
       "sat": true,
-      "sun": true,
+      "sun": false,
       "favorite": false,
       "bio": "Homer Simpson is a bumbling but well-meaning character from \"The Simpsons.\" He works at the Springfield Nuclear Power Plant and often finds himself in humorous situations."
     },
@@ -67,7 +67,7 @@
       "id": 8,
       "firstName": "Snoopy",
       "lastName": "",
-      "sat": true,
+      "sat": false,
       "sun": true,
       "favorite": false,
       "bio": "Snoopy is a beagle and the main character in the \"Peanuts\" comic strip. He has a vivid imagination, often imagining himself as a World War I flying ace, and his best friend is Charlie Brown."
