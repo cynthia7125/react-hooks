@@ -1,23 +1,17 @@
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-  useContext,
-  useReducer,
-  useCallback,
-} from "react";
+import React, { useState, useMemo, useContext, useCallback } from "react";
 import { Header } from "./Header";
 import { Menu } from "./Menu";
 import CartoonDetail from "./CartoonDetail";
 import { ConfigContext } from "./App";
+// import { GlobalContext } from "./GlobalState";
 import useCartoonDataManager from "./UseCartoonDataManager";
 
 const Cartoons = ({}) => {
   const [cartoonSaturday, setCartoonSaturday] = useState(true);
   const [cartoonSunday, setCartoonSunday] = useState(true);
   const context = useContext(ConfigContext);
-  // const [cartoonList, setCartoonList] = useState([]);
-  const {cartoonList, isLoading, dispatch} = useCartoonDataManager();
+
+  const { isLoading, cartoonList, toggleCartoonFavorite, } = useCartoonDataManager();
 
   const handleChangeSaturday = () => {
     setCartoonSaturday(!cartoonSaturday);
@@ -26,29 +20,17 @@ const Cartoons = ({}) => {
     setCartoonSunday(!cartoonSunday);
   };
 
-  const heartFavoriteHandler = useCallback((e, favoriteValue) => {
+  const heartFavoriteHandler = useCallback((e, cartoonRec) => {
     e.preventDefault();
-    const sessionId = parseInt(e.target.attributes["data-sessionId"].value);
-
-    dispatch({
-      type: favoriteValue === true ? "favorite" : "unfavorite",
-      id: sessionId,
-    });
-    // setCartoonList(
-    //   cartoonList.map((item) => {
-    //     if (item.id === sessionId) {
-    //       return { ...item, favorite: favoriteValue };
-    //     }
-    //     return item;
-    //   })
-    // );
+    toggleCartoonFavorite(cartoonRec);
   }, []);
 
-  const newcartoonList = useMemo(
+  const newCartoonList = useMemo(
     () =>
       cartoonList
         .filter(
-          ({ sat, sun }) => (cartoonSaturday && sat) || (cartoonSunday && sun)
+          ({ sat, sun }) =>
+            (cartoonSaturday && sat) || (cartoonSunday && sun),
         )
         .sort(function (a, b) {
           if (a.firstName < b.firstName) {
@@ -59,12 +41,10 @@ const Cartoons = ({}) => {
           }
           return 0;
         }),
-    [cartoonSaturday, cartoonSunday, cartoonList]
+    [cartoonSaturday, cartoonSunday, cartoonList],
   );
-  // [cartoonSaturday, cartoonSunday, cartoonList]
-  // );
 
-  const cartoonListFiltered = isLoading ? [] : newcartoonList;
+  const cartoonListFiltered = isLoading ? [] : newCartoonList;
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -103,21 +83,15 @@ const Cartoons = ({}) => {
         </div>
         <div className="row">
           <div className="card-deck">
-            {cartoonListFiltered.map(
-              ({ id, firstName, lastName, bio, favorite }) => {
-                return (
-                  <CartoonDetail
-                    key={id}
-                    id={id}
-                    favorite={favorite}
-                    firstName={firstName}
-                    lastName={lastName}
-                    bio={bio}
-                    onHeartFavoriteHandler={heartFavoriteHandler}
-                  />
-                );
-              }
-            )}
+            {cartoonListFiltered.map((cartoonRec) => {
+              return (
+                <CartoonDetail
+                  key={cartoonRec.id}
+                  cartoonRec={cartoonRec}
+                  onHeartFavoriteHandler={heartFavoriteHandler}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

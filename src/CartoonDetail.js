@@ -1,36 +1,40 @@
 import React from "react";
 import ImageTogglerOnScroll from "./imageToggleOnScroll";
+import useCartoonDataManager from "./UseCartoonDataManager";
 
-const CartoonDetail = React.memo(
-  ({ id, firstName, lastName, favorite, bio, onHeartFavoriteHandler }) => {
-    console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
-    return (
-      <div className="card col-4 cardmin">
-        <ImageTogglerOnScroll
-          className="card-img-top"
-          primaryImg={`/static/cartoons/bw/${firstName}.jpg`}
-          secondaryImg={`/static/cartoons/${firstName}.jpg`}
-          alt="{`${firstName} ${lastName}`} picture"
-        />
-        <div className="card-body">
-          <h4 className="card-title">
-            <button
-              data-sessionid={id}
-              className={favorite ? "heartredbutton" : "heartdarkbutton"}
-              onClick={(e) => {
-                onHeartFavoriteHandler(e, !favorite);
-              }}
-            />
-            <span>
-              {firstName} {lastName}
-            </span>
-          </h4>
+const CartoonDetail = React.memo(({ cartoonRec, onHeartFavoriteHandler }) => {
+  const { favoriteClickCount, incrementFavoriteClickCount } = useCartoonDataManager();
+  const { id, firstName, lastName, bio, favorite } = cartoonRec;
+  console.log(`CartoonDetail:${id} ${firstName} ${lastName} ${favorite}`);
 
-          <span>{bio}</span>
-        </div>
+  // const { incrementFavoriteClickCount } = useContext(GlobalContext);
+
+  return (
+    <div className="card col-4 cardmin">
+      <ImageTogglerOnScroll
+        className="card-img-top"
+        primaryImg={`/static/cartoons/bw/${firstName}.jpg`}
+        secondaryImg={`/static/cartoons/${firstName}.jpg`}
+        alt="{firstName} {lastName}"
+      />
+      <div className="card-body">
+        <h4 className="card-title">
+          <button
+            className={favorite ? "heartredbutton" : "heartdarkbutton"}
+            onClick={(e) => {
+              onHeartFavoriteHandler(e, cartoonRec);
+              incrementFavoriteClickCount();
+            }}
+          />
+          <span>
+            {firstName} {lastName}
+          </span>
+        </h4>
+        <h5>Click Count: {favoriteClickCount}</h5>
+        <span>{bio}</span>
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
 export default CartoonDetail;

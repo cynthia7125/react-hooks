@@ -15,7 +15,10 @@ const cartoonsReducer = (state, action) => {
         return { ...state, cartoonList: updateFavorite(true)};
 
       case "unfavorite":
-        return { ...state, cartoonList: updateFavorite(false)};
+        return { ...state, cartoonList: updateFavorite(false) };
+      
+      case "incrementFavoriteClickCount":
+        return { ...state, favoriteClickCount: state.favoriteClickCount + 1}; 
 
       default:
         return state;
