@@ -114,7 +114,7 @@
       "lastName": "",
       "sat": true,
       "sun": true,
-      "favorite": false,
+      "favorite": true,
       "bio": "Dexter is a child genius with a secret laboratory in his bedroom. He invents various gadgets and conducts scientific experiments while trying to keep his sister Dee Dee out of his lab."
     },
     {
@@ -177,7 +177,7 @@
       "lastName": "Baby",
       "sat": true,
       "sun": false,
-      "favorite": true,
+      "favorite": false,
       "bio": "Boss Baby follows the adventures of a suit-wearing baby as he teams up with his older brother to thwart the evil plans of Baby Corp's rivals."
     },
     {

@@ -3,6 +3,7 @@ import Home from "./Home";
 import Cartoons from "./Cartoons";
 import EmailValidatingForm from "./EmailValidatingForm";
 import { GlobalProvider } from "./GlobalState";
+import { FavoriteClickCountProvider } from "./FavoriteClickCountContext";
 
 export const ConfigContext = React.createContext();
 
@@ -22,7 +23,9 @@ const App = ({ pageName }) => {
   return (
     <ConfigContext.Provider value={configValue}>
       <GlobalProvider>
-        <div>{pageToShow({ pageName })}</div>
+        <FavoriteClickCountProvider>
+          <div>{pageToShow({ pageName })}</div>
+        </FavoriteClickCountProvider>
       </GlobalProvider>
     </ConfigContext.Provider>
   );

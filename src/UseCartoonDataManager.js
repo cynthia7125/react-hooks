@@ -10,7 +10,7 @@ function useCartoonDataManager() {
   const [{ isLoading, cartoonList, favoriteClickCount }, dispatch] = useReducer(cartoonsReducer, {
     isLoading: true,
     cartoonList: [],
-    favoriteClickCount: 10,
+    favoriteClickCount: 0,
   });
 
   function incrementFavoriteClickCount() {

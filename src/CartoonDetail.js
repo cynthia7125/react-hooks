@@ -1,13 +1,14 @@
 import React from "react";
 import ImageTogglerOnScroll from "./imageToggleOnScroll";
-import useCartoonDataManager from "./UseCartoonDataManager";
+import { useContext } from "react";
+import { FavoriteClickCountContext } from "./FavoriteClickCountContext";
+
 
 const CartoonDetail = React.memo(({ cartoonRec, onHeartFavoriteHandler }) => {
-  const { favoriteClickCount, incrementFavoriteClickCount } = useCartoonDataManager();
   const { id, firstName, lastName, bio, favorite } = cartoonRec;
   console.log(`CartoonDetail:${id} ${firstName} ${lastName} ${favorite}`);
 
-  // const { incrementFavoriteClickCount } = useContext(GlobalContext);
+  const { incrementFavoriteClickCount } = useContext(FavoriteClickCountContext);
 
   return (
     <div className="card col-4 cardmin">
@@ -30,7 +31,7 @@ const CartoonDetail = React.memo(({ cartoonRec, onHeartFavoriteHandler }) => {
             {firstName} {lastName}
           </span>
         </h4>
-        <h5>Click Count: {favoriteClickCount}</h5>
+        
         <span>{bio}</span>
       </div>
     </div>
