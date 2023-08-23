@@ -26,3 +26,7 @@
 
 ## [useMemo](https://react.dev/reference/react/useMemo)
 - Helped us cache some data on our cleint saving some compute time on our app and hopefully making it more responsive.
+
+### What needs to be fixed
+1. Unliking the cartoon is impossible
+2. Unchecking the Sunday and Saturday check boxes shows the images that were not initially in view to remain gray.
